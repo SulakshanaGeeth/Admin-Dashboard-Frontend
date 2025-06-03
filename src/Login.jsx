@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Container, Row, Col, Alert } from 'react-bootstrap';
-import axios from 'axios';
+import { login } from './services/authService';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -21,10 +21,10 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8090/api/v1/public/login', formData);
+            const data = await login(formData);
             setMessage('Login successful!');
             setVariant('success');
-            console.log(response.data); // Save token or redirect here
+            console.log(data); // token or user info
         } catch (error) {
             setMessage('Login failed. Please check your credentials.');
             setVariant('danger');
@@ -35,7 +35,7 @@ const Login = () => {
     return (
         <Container className="mt-5">
             <Row className="justify-content-md-center">
-                <Col md={6}>
+                <Col md={12}>
                     <h2 className="text-center">Login</h2>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formUsername" className="mb-3">
