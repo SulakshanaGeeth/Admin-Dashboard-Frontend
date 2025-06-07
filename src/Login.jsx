@@ -33,7 +33,7 @@ const Login = () => {
     };
 
     return (
-        <Container className="mt-5">
+        <Container>
             <Row className="justify-content-md-center">
                 <Col md={12}>
                     <h2 className="text-center">Login</h2>
