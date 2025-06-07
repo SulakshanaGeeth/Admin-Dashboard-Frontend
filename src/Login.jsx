@@ -33,7 +33,7 @@ const Login = () => {
     };
 
     return (
-        <Container>
+        <Container className="d-flex justify-content-center align-items-center min-vh-100">
             <Row className="justify-content-md-center">
                 <Col md={12}>
                     <h2 className="text-center">Login</h2>
