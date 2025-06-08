@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Button, Form, Row, Alert } from 'react-bootstrap';
 import { login } from './services/authService';
 
 const Login = () => {
@@ -33,44 +33,41 @@ const Login = () => {
     };
 
     return (
-        <Container className="d-flex justify-content-center align-items-center min-vh-100">
-            <Row className="justify-content-md-center">
-                <Col md={12}>
-                    <h2 className="text-center">Login</h2>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="formUsername" className="mb-3">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="username"
-                                value={formData.username}
-                                onChange={handleChange}
-                                placeholder="Enter username"
-                                required
-                            />
-                        </Form.Group>
+        <>
+            <Row >
+                <h2 className="text-center">Login</h2>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="formUsername" className="mb-3">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            placeholder="Enter username"
+                            required
+                        />
+                    </Form.Group>
 
-                        <Form.Group controlId="formPassword" className="mb-3">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                placeholder="Enter password"
-                                required
-                            />
-                        </Form.Group>
+                    <Form.Group controlId="formPassword" className="mb-3">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder="Enter password"
+                            required
+                        />
+                    </Form.Group>
 
-                        <Button variant="primary" type="submit" className="w-100">
-                            Login
-                        </Button>
-                    </Form>
-
-                    {message && <Alert variant={variant} className="mt-3">{message}</Alert>}
-                </Col>
+                    <Button variant="primary" type="submit" className="w-100">
+                        Login
+                    </Button>
+                </Form>
+                {message && <Alert variant={variant} className="mt-3">{message}</Alert>}
             </Row>
-        </Container>
+        </>
     );
 };
 
