@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { Button, Form, Row } from 'react-bootstrap';
 import { login } from './services/authService';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
         password: ''
     });
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData(prev => ({
@@ -18,14 +22,17 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         try {
             const data = await login(formData);
             toast.success('Login successful!');
+            navigate('/dashboard');
         } catch (error) {
-            if (error.status == 403)
-                toast.error("Invaild Credentials")
+            if (error?.status === 403) toast.error("Invalid Credentials");
+            else toast.error("Something went wrong. Please try again.");
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -58,8 +65,8 @@ const Login = () => {
                         />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" className="w-100">
-                        Login
+                    <Button variant="primary" type="submit" className="w-100" disabled={loading}>
+                        {loading ? 'Logging in...' : 'Login'}
                     </Button>
                 </Form>
             </Row>
