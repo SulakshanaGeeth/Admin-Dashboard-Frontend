@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Row } from 'react-bootstrap';
+import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { login } from './services/authService';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -37,9 +37,12 @@ const Login = () => {
     };
 
     return (
-        <>
-            <Row >
+        <div
+            className="d-flex justify-content-center align-items-center min-vh-100"
+        >
+            <Row className="w-100" style={{ maxWidth: '400px' }}>
                 <h2 className="text-center">Login</h2>
+
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formUsername" className="mb-3">
                         <Form.Label>Username</Form.Label>
@@ -65,12 +68,17 @@ const Login = () => {
                         />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" className="w-100" disabled={loading}>
-                        {loading ? 'Logging in...' : 'Login'}
+                    <Button
+                        variant="primary"
+                        type="submit"
+                        className="w-100"
+                        disabled={loading}
+                    >
+                        {loading ? 'Logging in…' : 'Login'}
                     </Button>
                 </Form>
             </Row>
-        </>
+        </div>
     );
 };
 
