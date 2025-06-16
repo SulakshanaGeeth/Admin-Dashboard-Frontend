@@ -25,7 +25,7 @@ const Login = () => {
         setLoading(true);
         try {
             const data = await login(formData);
-            toast.success('Login successful!');
+            localStorage.setItem('token', data.jwt);
             navigate('/dashboard');
         } catch (error) {
             if (error?.status === 403) toast.error("Invalid Credentials");
