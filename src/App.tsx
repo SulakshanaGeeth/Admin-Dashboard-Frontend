@@ -5,6 +5,7 @@ import Login from './Login';
 import Dashboard from './pages/Dashboard.jsx'
 import { ToastContainer } from 'react-toastify';
 import RequireAuth from './auth/RequireAuth.jsx';
+import AppLayout from './layouts/AppLayout.jsx';
 import './App.css'
 
 function App() {
@@ -13,10 +14,15 @@ function App() {
       <ToastContainer />
       <Router>
         <Routes>
+          {/* public route */}
           <Route path="/" element={<Login />} />
+
+          {/* protected area */}
           <Route element={<RequireAuth />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            {/* add more private paths here */}
+            {/* layout with Topbar + Sidebar */}
+            <Route element={<AppLayout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
           </Route>
         </Routes>
       </Router>
