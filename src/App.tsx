@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import { ToastContainer } from 'react-toastify';
 import RequireAuth from './auth/RequireAuth.jsx';
 import AppLayout from './layouts/AppLayout.jsx';
+import CreateUser from './pages/CreateUser.jsx';
 import './App.css'
 
 function App() {
@@ -15,13 +16,14 @@ function App() {
       <Router>
         <Routes>
           {/* public route */}
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
 
           {/* protected area */}
           <Route element={<RequireAuth />}>
             {/* layout with Topbar + Sidebar */}
             <Route element={<AppLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/create-user" element={<CreateUser />} />
             </Route>
           </Route>
         </Routes>
