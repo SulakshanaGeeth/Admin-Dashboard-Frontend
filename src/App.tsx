@@ -22,7 +22,7 @@ function App() {
           <Route element={<RequireAuth />}>
             {/* layout with Topbar + Sidebar */}
             <Route element={<AppLayout />}>
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard />} />
               <Route path="/create-user" element={<CreateUser />} />
             </Route>
           </Route>

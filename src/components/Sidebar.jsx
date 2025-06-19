@@ -2,7 +2,7 @@ import { FaHome, FaChartBar, FaUserPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const MENU = [
-    { key: 'home', label: 'Home', icon: <FaHome />, path: '/dashboard' },
+    { key: 'home', label: 'Home', icon: <FaHome />, path: '/' },
     { key: 'reports', label: 'Reports', icon: <FaChartBar /> },
     { key: 'createUser', label: 'Create User', icon: <FaUserPlus />, path: '/create-user' },
 ];
