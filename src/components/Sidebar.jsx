@@ -5,6 +5,7 @@ const MENU = [
     { key: 'home', label: 'Home', icon: <FaHome />, path: '/' },
     { key: 'reports', label: 'Reports', icon: <FaChartBar /> },
     { key: 'createUser', label: 'Create User', icon: <FaUserPlus />, path: '/create-user' },
+    { key: 'createRole', label: 'Create Role', icon: <FaUserPlus />, path: '/create-role' },
 ];
 
 const Sidebar = () => {

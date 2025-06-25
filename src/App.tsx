@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import RequireAuth from './auth/RequireAuth.jsx';
 import AppLayout from './layouts/AppLayout.jsx';
 import CreateUser from './pages/CreateUser.jsx';
+import CreateRole from './pages/CreateRole.jsx';
 import './App.css'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route element={<AppLayout />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/create-user" element={<CreateUser />} />
+              <Route path="/create-role" element={<CreateRole />} />
             </Route>
           </Route>
         </Routes>
