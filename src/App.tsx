@@ -24,6 +24,7 @@ function App() {
             {/* layout with Topbar + Sidebar */}
             <Route element={<AppLayout />}>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/create-user" element={<CreateUser />} />
               <Route path="/create-role" element={<CreateRole />} />
             </Route>
