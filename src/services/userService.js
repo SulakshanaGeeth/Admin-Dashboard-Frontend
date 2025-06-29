@@ -17,3 +17,18 @@ export const createRole = async (roleName) => {
         throw error;
     }
 }
+
+export const getRoles = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${API_BASE_URL}/api/roles`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching roles:', error);
+        throw error;
+    }
+}
