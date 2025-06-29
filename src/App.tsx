@@ -8,6 +8,7 @@ import RequireAuth from './auth/RequireAuth.jsx';
 import AppLayout from './layouts/AppLayout.jsx';
 import CreateUser from './pages/CreateUser.jsx';
 import CreateRole from './pages/CreateRole.jsx';
+import AssignPermission from './pages/AssignPermisstion.jsx';
 import './App.css'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/create-user" element={<CreateUser />} />
               <Route path="/create-role" element={<CreateRole />} />
+              <Route path="/assign-permission" element={<AssignPermission />} />
             </Route>
           </Route>
         </Routes>

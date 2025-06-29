@@ -6,6 +6,7 @@ const MENU = [
     { key: 'reports', label: 'Reports', icon: <FaChartBar /> },
     { key: 'createUser', label: 'Create User', icon: <FaUserPlus />, path: '/create-user' },
     { key: 'createRole', label: 'Create Role', icon: <FaUserPlus />, path: '/create-role' },
+    { key: 'assignPermission', label: 'Assign Permission', icon: <FaUserPlus />, path: '/assign-permission' },
 ];
 
 const Sidebar = () => {
