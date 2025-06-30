@@ -1,16 +1,30 @@
 import Table from 'react-bootstrap/Table';
 import { getRoles } from '../services/userService';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { FaEdit } from 'react-icons/fa';
 const AssignPermission = () => {
+
     const [roles, setRoles] = useState([]);
+
+    useEffect(() => {
+        fetchRoles();
+    }, []);
+
     const fetchRoles = async () => {
         try {
-            roles = await getRoles();
-            console.log(roles);
+            const response = await getRoles();
+            setRoles(response);
         } catch (error) {
             console.error('Error fetching roles:', error);
         }
     };
+
+    const handleEdit = (role) => {
+        // Handle the edit action for the role
+        console.log('Edit role:', role);
+        // You can navigate to a different page or open a modal here
+    }
+
     return (
         <>
             <h1>Assign Permission</h1>
@@ -18,29 +32,21 @@ const AssignPermission = () => {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>Name</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td colSpan={2}>Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    {roles.map((role, index) => (
+                        <tr key={role.id}>
+                            <td>{index + 1}</td>
+                            <td>{role.name}</td>
+                            <td><FaEdit
+                                style={{ cursor: 'pointer', color: 'blue' }}
+                                onClick={() => handleEdit(role)}
+                            /></td>
+                        </tr>
+                    ))}
+
                 </tbody>
             </Table>
         </>
