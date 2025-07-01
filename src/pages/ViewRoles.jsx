@@ -2,7 +2,7 @@ import Table from 'react-bootstrap/Table';
 import { getRoles } from '../services/userService';
 import { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
-const AssignPermission = () => {
+const ViewRoles = () => {
 
     const [roles, setRoles] = useState([]);
 
@@ -27,7 +27,7 @@ const AssignPermission = () => {
 
     return (
         <>
-            <h1>Assign Permission</h1>
+            <h1>View Roles</h1>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
@@ -52,4 +52,4 @@ const AssignPermission = () => {
         </>
     );
 }
-export default AssignPermission;
+export default ViewRoles;
