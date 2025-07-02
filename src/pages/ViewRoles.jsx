@@ -1,10 +1,12 @@
-import Table from 'react-bootstrap/Table';
+import { Table, Modal, Button } from 'react-bootstrap';
 import { getRoles } from '../services/userService';
 import { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 const ViewRoles = () => {
 
     const [roles, setRoles] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedRole, setSelectedRole] = useState(null);
 
     useEffect(() => {
         fetchRoles();
@@ -20,10 +22,22 @@ const ViewRoles = () => {
     };
 
     const handleEdit = (role) => {
-        // Handle the edit action for the role
         console.log('Edit role:', role);
-        // You can navigate to a different page or open a modal here
+        setSelectedRole(role);
+        setShowModal(true);
     }
+
+    const handleClose = () => {
+        setShowModal(false);
+        setSelectedRole(null);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // Add your submit logic here
+        console.log('Submitting role:', selectedRole);
+        handleClose();
+    };
 
     return (
         <>
@@ -49,6 +63,27 @@ const ViewRoles = () => {
 
                 </tbody>
             </Table>
+            <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Role</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {selectedRole && (
+                        <>
+                            <p><strong>Role Name:</strong> {selectedRole.name}</p>
+                            {/* Add your form or inputs here to edit */}
+                        </>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={handleSubmit}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 }
