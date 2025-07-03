@@ -1,15 +1,17 @@
 import { Table, Modal, Button } from 'react-bootstrap';
-import { getRoles } from '../services/userService';
+import { getRoles, getPermissions } from '../services/userService';
 import { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 const ViewRoles = () => {
 
     const [roles, setRoles] = useState([]);
+    const [permissions, setPermissions] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedRole, setSelectedRole] = useState(null);
 
     useEffect(() => {
         fetchRoles();
+        fetchPermissions();
     }, []);
 
     const fetchRoles = async () => {
@@ -20,6 +22,15 @@ const ViewRoles = () => {
             console.error('Error fetching roles:', error);
         }
     };
+
+    const fetchPermissions = async () => {
+        try {
+            const response = await getPermissions();
+            setPermissions(response);
+        } catch (error) {
+            console.error('Error fetching permissions:', error);
+        }
+    }
 
     const handleEdit = (role) => {
         console.log('Edit role:', role);
