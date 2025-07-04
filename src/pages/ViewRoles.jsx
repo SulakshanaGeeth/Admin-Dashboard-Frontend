@@ -2,12 +2,15 @@ import { Table, Modal, Button } from 'react-bootstrap';
 import { getRoles, getPermissions } from '../services/userService';
 import { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
+import Select from 'react-select';
 const ViewRoles = () => {
 
     const [roles, setRoles] = useState([]);
     const [permissions, setPermissions] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedRole, setSelectedRole] = useState(null);
+    const [selectedPermissions, setSelectedPermissions] = useState([]);
+    let permissionOptions = []
 
     useEffect(() => {
         fetchRoles();
@@ -26,11 +29,19 @@ const ViewRoles = () => {
     const fetchPermissions = async () => {
         try {
             const response = await getPermissions();
+            permissionOptions = permissions.map(p => ({
+                value: p.id,
+                label: p.name
+            }));
             setPermissions(response);
         } catch (error) {
             console.error('Error fetching permissions:', error);
         }
     }
+
+    const handlePermissionsChange = (selectedOptions) => {
+        setSelectedPermissions(selectedOptions); // this will be array of { value, label }
+    };
 
     const handleEdit = (role) => {
         console.log('Edit role:', role);
@@ -83,6 +94,13 @@ const ViewRoles = () => {
                         <>
                             <p><strong>Role Name:</strong> {selectedRole.name}</p>
                             {/* Add your form or inputs here to edit */}
+                            <Select
+                                isMulti
+                                options={permissionOptions}
+                                value={selectedPermissions}
+                                onChange={handlePermissionsChange}
+                                placeholder="Choose permissions..."
+                            />
                         </>
                     )}
                 </Modal.Body>
