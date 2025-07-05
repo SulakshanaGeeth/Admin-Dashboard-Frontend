@@ -1,6 +1,6 @@
 import { Table, Modal, Button } from 'react-bootstrap';
 import { getRoles, getPermissions } from '../services/userService';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import Select from 'react-select';
 const ViewRoles = () => {
@@ -10,7 +10,10 @@ const ViewRoles = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedRole, setSelectedRole] = useState(null);
     const [selectedPermissions, setSelectedPermissions] = useState([]);
-    let permissionOptions = []
+    const permissionOptions = useMemo(() =>
+        permissions.map(p => ({ value: p.id, label: p.name })),
+        [permissions]
+    );
 
     useEffect(() => {
         fetchRoles();
@@ -29,10 +32,6 @@ const ViewRoles = () => {
     const fetchPermissions = async () => {
         try {
             const response = await getPermissions();
-            permissionOptions = permissions.map(p => ({
-                value: p.id,
-                label: p.name
-            }));
             setPermissions(response);
         } catch (error) {
             console.error('Error fetching permissions:', error);
@@ -46,6 +45,11 @@ const ViewRoles = () => {
     const handleEdit = (role) => {
         console.log('Edit role:', role);
         setSelectedRole(role);
+        const selected = role.permissions?.map(pid => {
+            const perm = permissions.find(p => p.id === pid.id);
+            return { value: perm.id, label: perm.name };
+        }) || [];
+        setSelectedPermissions(selected);
         setShowModal(true);
     }
 
