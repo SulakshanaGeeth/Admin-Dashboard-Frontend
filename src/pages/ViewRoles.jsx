@@ -1,7 +1,6 @@
 import { Table, Modal, Button, Spinner } from 'react-bootstrap';
 import { getRoles, getPermissions } from '../services/userService';
 import { useEffect, useState, useMemo } from 'react';
-import { useLoading } from '../context/LoadingContext';
 import { FaEdit } from 'react-icons/fa';
 import Select from 'react-select';
 const ViewRoles = () => {
@@ -11,7 +10,7 @@ const ViewRoles = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedRole, setSelectedRole] = useState(null);
     const [selectedPermissions, setSelectedPermissions] = useState([]);
-    const { setLoading } = useLoading();
+    const [loading, setLoading] = useState(false);
     const permissionOptions = useMemo(() =>
         permissions.map(p => ({ value: p.id, label: p.name })),
         [permissions]
@@ -30,8 +29,6 @@ const ViewRoles = () => {
             setLoading(false);
         } catch (error) {
             console.error('Error fetching roles:', error);
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -43,8 +40,6 @@ const ViewRoles = () => {
             setLoading(false);
         } catch (error) {
             console.error('Error fetching permissions:', error);
-        } finally {
-            setLoading(false);
         }
     }
 
@@ -76,58 +71,66 @@ const ViewRoles = () => {
     };
 
     return (
-
         <>
-            <h1>View Roles</h1>
-            <Table striped bordered hover responsive>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {roles.map((role, index) => (
-                        <tr key={role.id}>
-                            <td>{index + 1}</td>
-                            <td>{role.name}</td>
-                            <td><FaEdit
-                                style={{ cursor: 'pointer', color: 'blue' }}
-                                onClick={() => handleEdit(role)}
-                            /></td>
-                        </tr>
-                    ))}
+            {loading ? (
+                <div className="text-center mt-5">
+                    <Spinner animation="border" variant="primary" />
+                    <p className="mt-2">Loading roles and permissions...</p>
+                </div>
+            ) : (
+                <>
+                    <h1>View Roles</h1>
+                    <Table striped bordered hover responsive>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {roles.map((role, index) => (
+                                <tr key={role.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{role.name}</td>
+                                    <td><FaEdit
+                                        style={{ cursor: 'pointer', color: 'blue' }}
+                                        onClick={() => handleEdit(role)}
+                                    /></td>
+                                </tr>
+                            ))}
 
-                </tbody>
-            </Table>
-            <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Role</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {selectedRole && (
-                        <>
-                            <p><strong>Role Name:</strong> {selectedRole.name}</p>
-                            {/* Add your form or inputs here to edit */}
-                            <Select
-                                isMulti
-                                options={permissionOptions}
-                                value={selectedPermissions}
-                                onChange={handlePermissionsChange}
-                                placeholder="Choose permissions..."
-                            />
-                        </>
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+                        </tbody>
+                    </Table>
+                    <Modal show={showModal} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Edit Role</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            {selectedRole && (
+                                <>
+                                    <p><strong>Role Name:</strong> {selectedRole.name}</p>
+                                    {/* Add your form or inputs here to edit */}
+                                    <Select
+                                        isMulti
+                                        options={permissionOptions}
+                                        value={selectedPermissions}
+                                        onChange={handlePermissionsChange}
+                                        placeholder="Choose permissions..."
+                                    />
+                                </>
+                            )}
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Cancel
+                            </Button>
+                            <Button variant="primary" onClick={handleSubmit}>
+                                Save Changes
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </>
+            )}
         </>
     );
 }

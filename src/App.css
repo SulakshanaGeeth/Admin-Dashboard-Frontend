@@ -5,20 +5,3 @@ html, body, #root {
   width: 100%;
   box-sizing: border-box;
 }
-
-.global-spinner-overlay {
-  position: fixed;
-  z-index: 9999;
-  background: rgba(255, 255, 255, 0.8);
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.spinner-container {
-  text-align: center;
-}

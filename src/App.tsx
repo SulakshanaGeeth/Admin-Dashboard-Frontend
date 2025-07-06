@@ -1,7 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { LoadingProvider } from './context/LoadingContext.jsx';
 import Login from './Login';
 import Dashboard from './pages/Dashboard.jsx'
 import { ToastContainer } from 'react-toastify';
@@ -16,28 +15,24 @@ function App() {
   return (
     <>
       <ToastContainer />
-      <LoadingProvider>
-        <Router>
-          <Routes>
-            {/* public route */}
-            <Route path="/login" element={<Login />} />
+      <Router>
+        <Routes>
+          {/* public route */}
+          <Route path="/login" element={<Login />} />
 
-            {/* protected area */}
-            <Route element={<RequireAuth />}>
-              {/* layout with Topbar + Sidebar */}
-
-              <Route element={<AppLayout />}>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/create-user" element={<CreateUser />} />
-                <Route path="/create-role" element={<CreateRole />} />
-                <Route path="/view-roles" element={<ViewRoles />} />
-              </Route>
-
+          {/* protected area */}
+          <Route element={<RequireAuth />}>
+            {/* layout with Topbar + Sidebar */}
+            <Route element={<AppLayout />}>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/create-user" element={<CreateUser />} />
+              <Route path="/create-role" element={<CreateRole />} />
+              <Route path="/view-roles" element={<ViewRoles />} />
             </Route>
-          </Routes>
-        </Router>
-      </LoadingProvider>
+          </Route>
+        </Routes>
+      </Router>
     </>
   )
 }
