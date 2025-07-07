@@ -1,16 +1,8 @@
-import axios from 'axios';
-import { API_BASE_URL } from '../config/apiConfig';
+import axiosInstance from './axiosInstance';
 export const createRole = async (roleName) => {
     try {
-        const token = localStorage.getItem('token');
         const role = { name: roleName };
-        const response = await axios.post(`${API_BASE_URL}/api/roles`, role,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        );
+        const response = await axiosInstance.post('/api/roles', role)
         return response.data;
     } catch (error) {
         console.error('Error creating role:', error);
@@ -20,12 +12,7 @@ export const createRole = async (roleName) => {
 
 export const getRoles = async () => {
     try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`${API_BASE_URL}/api/roles`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+        const response = await axiosInstance('/api/roles');
         return response.data;
     } catch (error) {
         console.error('Error fetching roles:', error);

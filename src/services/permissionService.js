@@ -1,13 +1,7 @@
-import axios from 'axios';
-import { API_BASE_URL } from '../config/apiConfig';
+import axiosInstance from './axiosInstance';
 export const getPermissions = async () => {
     try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`${API_BASE_URL}/api/permissions`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+        const response = await axiosInstance.get('/api/permissions');
         return response.data;
     } catch (error) {
         console.error('Error fetching permissions:', error);
