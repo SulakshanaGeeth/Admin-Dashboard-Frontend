@@ -1,5 +1,6 @@
 import { Table, Modal, Button, Spinner } from 'react-bootstrap';
-import { getRoles, getPermissions } from '../services/userService';
+import { getRoles } from '../services/roleService';
+import { getPermissions } from '../services/permissionService';
 import { useEffect, useState, useMemo } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import Select from 'react-select';
