@@ -6,6 +6,7 @@ import { FaBars } from 'react-icons/fa';
 const MENU = [
     { key: 'home', label: 'Home', icon: <FaHome />, path: '/' },
     { key: 'createUser', label: 'Create User', icon: <FaUserPlus />, path: '/create-user' },
+    { key: 'viweUsers', label: 'View Users', icon: <FaUserPlus />, path: '/view-users' },
     { key: 'createRole', label: 'Create Role', icon: <FaUserPlus />, path: '/create-role' },
     { key: 'viewRoles', label: 'View Roles', icon: <FaUserPlus />, path: '/view-roles' },
 ];
