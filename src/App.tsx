@@ -10,6 +10,7 @@ import CreateUser from './pages/CreateUser.jsx';
 import CreateRole from './pages/CreateRole.jsx';
 import ViewRoles from './pages/ViewRoles.jsx';
 import ViewUsers from './pages/ViewUsers.jsx'
+import ViewPermissions from './pages/ViewPermissions.jsx';
 import './App.css'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path="/create-user" element={<CreateUser />} />
               <Route path="/create-role" element={<CreateRole />} />
               <Route path="/view-roles" element={<ViewRoles />} />
+              <Route path="/view-permissions" element={<ViewPermissions />} />
               <Route path="/view-users" element={<ViewUsers />} />
             </Route>
           </Route>

@@ -9,6 +9,7 @@ const MENU = [
     { key: 'viweUsers', label: 'View Users', icon: <FaUserPlus />, path: '/view-users' },
     { key: 'createRole', label: 'Create Role', icon: <FaUserPlus />, path: '/create-role' },
     { key: 'viewRoles', label: 'View Roles', icon: <FaUserPlus />, path: '/view-roles' },
+    { key: 'viewPermissons', label: 'View Permissons', icon: <FaUserPlus />, path: '/view-permissons' },
 ];
 
 const Sidebar = () => {
