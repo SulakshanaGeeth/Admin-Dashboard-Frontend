@@ -10,3 +10,13 @@ export const getUsers = async () => {
         throw error;
     }
 }
+
+export const deleteUser = async (userId) => {
+    try {
+        const response = await axiosInstance.delete(`/api/users/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        throw error;
+    }
+}
