@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Container, Row, Col } from 'react-bootstrap';
+import { createUser } from '../services/userService';
+import SubmitButton from '../components/SubmitButton';
 
 const CreateUser = () => {
-    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -18,19 +18,8 @@ const CreateUser = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch('/api/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-                body: JSON.stringify(formData),
-            });
-
-            if (!res.ok) throw new Error('Failed to create user');
-
+            await createUser(formData);
             toast.success('User created!');
-            navigate('/dashboard');          // or wherever you want to send them
         } catch (err) {
             toast.error(err.message);
         }
@@ -39,7 +28,7 @@ const CreateUser = () => {
     return (
         <Container className="py-4">
             <Row >
-                <h1 className="mb-4 text-center">Create User</h1>
+                <h1>Create User</h1>
                 <Form onSubmit={handleSubmit}>
                     {/* 1️⃣ Two‑column layout starting at md (≥768 px) */}
                     <Row className="g-3">
@@ -82,10 +71,7 @@ const CreateUser = () => {
                         />
                     </Form.Group>
 
-                    {/* 2️⃣ Small, content‑width button */}
-                    <Button type="submit" variant="primary" className="px-4">
-                        Save
-                    </Button>
+                    <SubmitButton />
                 </Form>
             </Row>
         </Container>
