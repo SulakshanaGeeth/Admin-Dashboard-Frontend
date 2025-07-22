@@ -13,19 +13,6 @@ const CreateUser = () => {
         password: '',
     });
 
-    const handleChange = e =>
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-
-    // const handleSubmit = async e => {
-    //     e.preventDefault();
-    //     try {
-    //         await createUser(formData);
-    //         toast.success('User created!');
-    //     } catch (err) {
-    //         toast.error(err.message);
-    //     }
-    // };
-
     return (
         <Container className="py-4">
             <Row >
@@ -47,26 +34,13 @@ const CreateUser = () => {
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control
                                     type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
+                                    {...register("email", { required: "Email is required" })}
+                                    isInvalid={!!errors.email}
                                     required
                                 />
                             </Form.Group>
                         </Col>
                     </Row>
-
-                    {/* Password stays full‑width underneath */}
-                    <Form.Group controlId="password" className="my-3">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-                    </Form.Group>
 
                     <SubmitButton />
                 </Form>
