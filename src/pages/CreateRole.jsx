@@ -1,40 +1,40 @@
-import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { useForm } from 'react-hook-form';
 import { createRole } from '../services/roleService';
+import SubmitButton from '../components/SubmitButton';
+import { toast } from 'react-toastify';
 
 const CreateRole = () => {
-    const [roleName, setRoleName] = useState('');
-    const handleRoleNameChange = (e) => {
-        setRoleName(e.target.value);
-    };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!roleName.trim()) {
-            alert('Role name cannot be empty!');
-            return;
-        }
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const onSubmit = async (data) => {
         try {
-            const newRole = await createRole(roleName);
-            setRoleName(''); // Reset the input field
-            alert('Role created successfully!');
+            await createRole(data.roleName);
+            reset();
+            toast.success('Role created successfully!');
         } catch (error) {
             console.error('Error creating role:', error);
-            alert('Failed to create role. Please try again.');
+            toast.error('Failed to create role. Please try again.');
         }
     }
 
     return (
         <>
             <h2>Create Role</h2>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group className="mb-3" >
                     <Form.Label>Role Name</Form.Label>
-                    <Form.Control type="string" placeholder="role name" value={roleName} onChange={handleRoleNameChange} />
+                    <Form.Control
+                        type="string"
+                        placeholder="role name"
+                        {...register("roleName", { required: "Name is required" })}
+                    />
+                    {errors.roleName &&
+                        <div className="text-danger">{errors.roleName.message}</div>}
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Create Role
-                </Button>
+                <div className="mt-4">
+                    <SubmitButton />
+                </div>
             </Form>
         </>
     )
