@@ -22,11 +22,12 @@ export const MENU = [
             { key: 'viewRoles', label: 'View Roles', path: '/view-roles' },
         ],
     },
-
     {
         key: 'permissions',
         label: 'Permissions',
         icon: <FaUserPlus />,
-        path: '/view-permissions',
-    },
+        children: [
+            { key: 'viewpermissions', label: 'View Permissions', path: '/view-permissions' },
+        ],
+    }
 ];
