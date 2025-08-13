@@ -21,32 +21,69 @@ import ViewUsers from './pages/ViewUsers.jsx'
 import ViewPermissions from './pages/ViewPermissions.jsx';
 import './App.css'
 
-function App() {
-  return (
-    <>
-      <ToastContainer />
-      <Router>
-        <Routes>
-          {/* public route */}
-          <Route path="/login" element={<Login />} />
+// function App() {
+//   return (
+//     <>
+//       <ToastContainer />
+//       <Router>
+//         <Routes>
+//           {/* public route */}
+//           <Route path="/login" element={<Login />} />
 
-          {/* protected area */}
-          <Route element={<RequireAuth />}>
-            {/* layout with Topbar + Sidebar */}
-            <Route element={<AppLayout />}>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/create-user" element={<CreateUser />} />
-              <Route path="/create-role" element={<CreateRole />} />
-              <Route path="/view-roles" element={<ViewRoles />} />
-              <Route path="/view-permissions" element={<ViewPermissions />} />
-              <Route path="/view-users" element={<ViewUsers />} />
-            </Route>
-          </Route>
+//           {/* protected area */}
+//           <Route element={<RequireAuth />}>
+//             {/* layout with Topbar + Sidebar */}
+//             <Route element={<AppLayout />}>
+//               <Route path="/" element={<Dashboard />} />
+//               <Route path="/dashboard" element={<Dashboard />} />
+//               <Route path="/create-user" element={<CreateUser />} />
+//               <Route path="/create-role" element={<CreateRole />} />
+//               <Route path="/view-roles" element={<ViewRoles />} />
+//               <Route path="/view-permissions" element={<ViewPermissions />} />
+//               <Route path="/view-users" element={<ViewUsers />} />
+//             </Route>
+//           </Route>
+//         </Routes>
+//       </Router>
+//     </>
+//   )
+// }
+const App = () => {
+  const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
+  const storedTheme = useSelector((state) => state.theme)
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.href.split('?')[1])
+    const theme = urlParams.get('theme') && urlParams.get('theme').match(/^[A-Za-z0-9\s]+/)[0]
+    if (theme) {
+      setColorMode(theme)
+    }
+
+    if (isColorModeSet()) {
+      return
+    }
+
+    setColorMode(storedTheme)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <HashRouter>
+      <Suspense
+        fallback={
+          <div className="pt-3 text-center">
+            <CSpinner color="primary" variant="grow" />
+          </div>
+        }
+      >
+        <Routes>
+          <Route exact path="/login" name="Login Page" element={<Login />} />
+          {/* <Route exact path="/register" name="Register Page" element={<Register />} />
+          <Route exact path="/404" name="Page 404" element={<Page404 />} />
+          <Route exact path="/500" name="Page 500" element={<Page500 />} /> */}
+          <Route path="*" name="Home" element={<DefaultLayout />} />
         </Routes>
-      </Router>
-    </>
+      </Suspense>
+    </HashRouter>
   )
 }
-
 export default App
