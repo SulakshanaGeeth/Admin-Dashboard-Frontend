@@ -1,6 +1,14 @@
+import React, { Suspense, useEffect } from 'react'
+import { BrowserRouter as Router, HashRouter, Route, Routes } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { CSpinner, useColorModes } from '@coreui/react'
+import './scss/style.scss'
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Containers
+const DefaultLayout = React.lazy(() => import('./layouts/DefaultLayout.jsx'))
+
 import Login from './Login';
 import Dashboard from './pages/Dashboard.jsx'
 import { ToastContainer } from 'react-toastify';
